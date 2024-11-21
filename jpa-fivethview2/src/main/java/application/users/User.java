@@ -1,5 +1,6 @@
 package application.users;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -17,8 +18,8 @@ import application.country.Country;
 
 @Entity
 @Table(name = "users")
-public class User  {
-
+public class User implements Serializable  {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private long id;
@@ -115,6 +116,12 @@ public class User  {
 			return false;
 		User other = (User) obj;
 		return id == other.id;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + ", createAt=" + createAt
+				+ ", lastUpdate=" + lastUpdate + ", password=" + password + ", country=" + country + "]";
 	}
 
 	

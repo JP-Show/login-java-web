@@ -6,17 +6,34 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Insert title here</title>
+	
+	<script>
+		function setDateFields() {
+			console.log("hello world")
+			let createAtField = document.getElementById('createAt');
+			let lastUpdateField = document.getElementById('lastUpdate');
+
+			let now = new Date().toISOString();
+			if (createAtField) createAtField.value = now;
+			if (lastUpdateField) lastUpdateField.value = now;
+		}
+	</script>
+	
 </h:head>
 <h:body>
-	<h:form>
+	<h:form prependId="false" onsubmit = "setDateFields();">
 		<h3>Create User</h3>
-		<label> name: <h:inputText />
+		<label> name: <h:inputText value="#{userRegister.user.name}"/>
 		</label>
-		<label> Birth Date: <h:inputText />
+		<label> Birth Date: <h:inputText converter="dateConverter" value="#{userRegister.user.birthDate}" />
 		</label>
-		<label> password: <h:inputText />
+		<label> password: <h:inputText value="#{userRegister.user.password}"  />
 		</label>
-		<h:commandButton value="send"></h:commandButton>
+		 <h:inputHidden id="createAt" converter="zonedTimeConverter" value="#{userRegister.user.createAt}" />
+		 <h:inputHidden  id="lastUpdate" converter="zonedTimeConverter" value="#{userRegister.user.lastUpdate}" />
+		<!-- não tem como receber os parâmetros diretamente no método porque estamos usando o jsf 2.1 -->
+		<h:commandButton value="send" action="#{userRegister.registerUser}"></h:commandButton>
+		
 	</h:form>
 </h:body>
 </html>

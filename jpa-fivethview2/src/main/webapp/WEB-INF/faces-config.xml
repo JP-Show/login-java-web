@@ -4,4 +4,8 @@
     xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee https://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
     version="2.1">
+    <converter>
+    	<converter-id>javax.faces.DateTime</converter-id>
+    	<converter-class>application.utils.web.DateConverter</converter-class>
+    </converter>
 </faces-config>
