@@ -1,6 +1,8 @@
 package application.web.managedbeans;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import application.country.Country;
 import application.users.User;
@@ -23,10 +25,12 @@ public class UserRegister {
 		this.user = user;
 	}
 	
-	public void registerUser() {
+	public String registerUser() {
 		Country country = new Country(this.country);
 		user.setCountry(country);
 		System.out.println(user.toString());
+		// Redireciona para evitar reenvio do formulário
+		return "index?faces-redirect=true";
 	}
 	
 }

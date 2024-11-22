@@ -1,11 +1,13 @@
 package application.utils.web.application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 
@@ -14,8 +16,11 @@ import application.country.CountryServices;
 import application.utils.JPAUtils;
 
 @ManagedBean
-@ViewScoped
-public class CountryCache {
+//eu prefiri usar o seassionscoped porque não quero que isso seja chamado toda vez que a página recarregar
+//só apenas quando carrega pela primeira vez
+@SessionScoped
+public class CountryCache implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private List<SelectItem> selectItems;
 	
 	@PostConstruct

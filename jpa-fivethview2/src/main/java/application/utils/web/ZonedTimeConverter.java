@@ -15,7 +15,6 @@ public class ZonedTimeConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		System.out.println(value);
 		if(value == null || value == "") return null;
 		ZonedDateTime zonedDateTime = ZonedDateTime.parse(value);
 		return zonedDateTime;
