@@ -30,7 +30,11 @@
 		<label> password: <h:inputText value="#{userRegister.user.password}"  />
 		</label>
 		 <h:inputHidden id="createAt" converter="zonedTimeConverter" value="#{userRegister.user.createAt}" />
-		 <h:inputHidden  id="lastUpdate" converter="zonedTimeConverter" value="#{userRegister.user.lastUpdate}" />
+		 <h:inputHidden  id="lastUpdate" converter="zonedTimeConverter" value="#{userRegister.user.lastUpdate}" /> <br/>
+		 
+		 <h:selectOneMenu value="#{userRegister.country}">
+		 <f:selectItems value="#{countryCache.selectItems}" ></f:selectItems>
+		 </h:selectOneMenu><br/>
 		<!-- não tem como receber os parâmetros diretamente no método porque estamos usando o jsf 2.1 -->
 		<h:commandButton value="send" action="#{userRegister.registerUser}"></h:commandButton>
 		

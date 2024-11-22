@@ -26,14 +26,17 @@ public final class JPAUtils {
 		if(em != null) {
 			EntityTransaction tx = em.getTransaction();
 			
-			if(tx.isActive()) tx.commit();
+			if(tx.isActive()) tx.rollback(); // if something pending, commit
 			em.close();
 			
-			tem.set(null);
+			tem.set(null); // clean the ThreadLocal
 		}
 	}
 	public static void closeEntityManagerFactory() {
 		closeEntityManager();
-		emf.close();
+		if (emf != null && emf.isOpen()) {
+			emf.close();
+			emf = null;			
+		}
 	}
 }

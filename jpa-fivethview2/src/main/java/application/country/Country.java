@@ -43,5 +43,10 @@ public class Country {
 		Country other = (Country) obj;
 		return Objects.equals(name, other.name);
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 	
 }

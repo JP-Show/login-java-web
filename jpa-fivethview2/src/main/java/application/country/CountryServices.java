@@ -1,5 +1,8 @@
 package application.country;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import application.country.exceptions.CountryExceptions;
@@ -16,8 +19,22 @@ public class CountryServices {
 		} catch (Exception e) {
 			throw new CountryExceptions(e.getMessage());
 		} finally {
-			JPAUtils.closeEntityManager();
+			if (em.isOpen())
+				em.close();
 		}
 		return country;
+	}
+	public static List<Country> findAll() {
+		EntityManager em = JPAUtils.getEntityManager();
+		List<Country> countries = new ArrayList<>();
+		try {
+			countries = em.createQuery("SELECT c FROM Country c ORDER BY c.name", Country.class).getResultList();
+		} catch (Exception e) {
+			throw new CountryExceptions(e.getMessage());
+		} finally {
+			if (em.isOpen())
+				em.close();
+		}
+		return countries;
 	}
 }
