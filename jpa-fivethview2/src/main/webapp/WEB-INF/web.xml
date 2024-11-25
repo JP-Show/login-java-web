@@ -21,4 +21,13 @@
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	<filter>
+	    <filter-name>LoginFilter</filter-name>
+	    <filter-class>application.web.managedbeans.filter.LoginFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+	    <filter-name>LoginFilter</filter-name>
+	    <url-pattern>/logged/*</url-pattern>
+	</filter-mapping>
 </web-app>

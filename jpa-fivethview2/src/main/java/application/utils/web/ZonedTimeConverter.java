@@ -1,7 +1,5 @@
 package application.utils.web;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import javax.faces.component.UIComponent;

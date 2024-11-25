@@ -1,5 +1,6 @@
 package application.country;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,8 +10,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "countries")
-public class Country {
-
+public class Country implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@Column(length = 50)
 	private String name;

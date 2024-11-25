@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
 
 import application.country.Country;
 import application.country.CountryServices;
-import application.utils.JPAUtils;
 
 @ManagedBean
 //eu prefiri usar o seassionscoped porque não quero que isso seja chamado toda vez que a página recarregar

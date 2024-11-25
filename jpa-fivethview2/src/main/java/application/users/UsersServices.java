@@ -55,6 +55,21 @@ public class UsersServices {
 		}
 		return list;
 	}
+	public static User findByNameUnique(String name) throws UsersExceptions {
+		EntityManager em = JPAUtils.getEntityManager();
+		User user = null;
+		try {
+			user = em.createQuery("SELECT u FROM User u where u.name like '%" + name + "%'", User.class).getSingleResult();
+			if (user == null)
+				throw new UsersExceptions("Not found: " + name);
+		} catch (Exception e) {
+			throw new UsersExceptions(e.getMessage());
+		} finally {
+			if (em.isOpen())
+				em.close();
+		}
+		return user;
+	}
 
 	public static User findById(long id) throws UsersExceptions {
 		EntityManager em = JPAUtils.getEntityManager();
