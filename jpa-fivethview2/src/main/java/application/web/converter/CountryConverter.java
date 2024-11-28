@@ -1,4 +1,4 @@
-package application.utils.web;
+package application.web.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -6,7 +6,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import application.country.Country;
-import application.utils.web.exceptions.WebExceptions;
+import application.web.exception.WebExceptions;
 
 @FacesConverter("countryConverter")
 public class CountryConverter implements Converter {

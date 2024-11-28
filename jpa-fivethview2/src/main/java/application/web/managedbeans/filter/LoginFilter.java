@@ -10,14 +10,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import application.web.managedbeans.login.LoginBean;
+import application.web.managedbeans.session.LoginBean;
 
 public class LoginFilter implements Filter {
 	
 	@Override
 	public void doFilter(ServletRequest servletReq, ServletResponse servletRes, FilterChain filterChain)
 			throws IOException, ServletException {
-		System.out.println("entrou no filtro");
 		HttpServletRequest req = (HttpServletRequest) servletReq;
 		HttpServletResponse res = (HttpServletResponse) servletRes;
 		String url = req.getRequestURL().toString();

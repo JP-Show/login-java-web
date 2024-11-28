@@ -1,4 +1,4 @@
-package application.utils.web.exceptions;
+package application.web.exception;
 
 public class WebExceptions extends RuntimeException  {
 	private static final long serialVersionUID = 1L;

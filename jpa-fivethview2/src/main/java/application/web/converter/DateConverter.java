@@ -1,4 +1,4 @@
-package application.utils.web;
+package application.web.converter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import application.utils.web.exceptions.WebExceptions;
+import application.web.exception.WebExceptions;
 
 @FacesConverter("dateConverter")
 public class DateConverter implements Converter {

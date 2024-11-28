@@ -1,4 +1,4 @@
-package application.utils.web.application;
+package application.web.managedbeans.session;
 
 import java.io.Serializable;
 import java.util.ArrayList;

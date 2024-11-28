@@ -3,6 +3,7 @@ package application.users;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.util.List;
 
@@ -105,14 +106,14 @@ public class UsersServices {
 		return user;
 	}
 
-	public static boolean updateName(String name, long id) throws UsersExceptions {
+	public static boolean updateName(String name, long id, ZonedDateTime zdt) throws UsersExceptions {
 		EntityManager em = JPAUtils.getEntityManager();
 		boolean updated = false;
 		EntityTransaction tx = em.getTransaction();
 		try {
-			String sql = "UPDATE User SET name = :name WHERE id = :id";
+			String sql = "UPDATE User SET name = :name, lastUpdate = :lastUpdate WHERE id = :id";
 			tx.begin();
-			em.createQuery(sql).setParameter("name", name).setParameter("id", id).executeUpdate();
+			em.createQuery(sql).setParameter("name", name).setParameter("lastUpdate", zdt).setParameter("id", id).executeUpdate();
 			tx.commit();
 			updated = true;
 		} catch (Exception e) {

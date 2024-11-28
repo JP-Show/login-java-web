@@ -1,4 +1,4 @@
-package application.web.managedbeans.login;
+package application.web.managedbeans.session;
 
 import java.io.Serializable;
 
@@ -7,10 +7,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-
 import application.users.User;
 import application.users.UsersServices;
+import application.utils.ArgonInstance;
 
 @SessionScoped
 @ManagedBean
@@ -25,9 +24,8 @@ public class LoginBean implements Serializable {
 		if(userLogged == null) {
 			User userFound = UsersServices.findByNameUnique(name);
 			try {
-				Argon2PasswordEncoder argonEncoder = new Argon2PasswordEncoder(16, 64, 2, 128000, 10);
-				if(userFound.getName().equals(name) && argonEncoder.matches
-						(password, userFound.getPassword())) {
+				boolean match = ArgonInstance.matchPassword(password, userFound.getPassword());
+				if(userFound.getName().equals(name) && match) {
 					userLogged = userFound;
 					System.out.println("logado com sucesso");
 					return "logged/home.xhtml?faces-redirect=true";
@@ -40,7 +38,7 @@ public class LoginBean implements Serializable {
 	            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 	           
 	            // Redireciona de volta para login.xhtml
-	            return "/logged/home.xhtml?faces-redirect=true";
+	            return "/login.xhtml?faces-redirect=true";
 	            
 			} catch (Exception e) {
 				throw new RuntimeException(e.getMessage());

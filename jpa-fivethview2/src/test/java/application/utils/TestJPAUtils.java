@@ -66,7 +66,7 @@ class TestJPAUtils {
 //		senha = criptPassword("SenhaSecreta02");
 //		System.out.println(senha);
 	}
-	@Test
+	
 	void testInsertUser() {
 		LocalDateTime ldt = LocalDateTime.now().minusHours(1);
 		ZonedDateTime zdt = ZonedDateTime.of(ldt, ZoneId.of("Etc/GMT-8"));
@@ -86,7 +86,11 @@ class TestJPAUtils {
 		insertUser(user2, ZoneId.of("Etc/GMT-0"));
 		insertUser(user3, ZoneId.of("Etc/GMT+3"));
 	}
-	
+	@Test
+	void testData() {
+		ZonedDateTime zdt = ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Etc/GMT-8"));
+		System.out.println(LocalDateTime.now() +" --- "+ zdt.toLocalDateTime());
+	}
 	
 	void testFindCountry(){
 		Country hongKong = CountryServices.findById("hong kong");
