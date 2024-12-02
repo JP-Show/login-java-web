@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	
+<h:head>
+	<link rel="stylesheet" type="text/css" href="style/style-signup.css" />	
+	<title>Insert title here</title>
+	
+	<script>
+		function setDateFields() {
+			let createAtField = document.getElementById('createAt');
+			let lastUpdateField = document.getElementById('lastUpdate');
+
+			let now = new Date().toISOString();
+			if (createAtField) createAtField.value = now;
+			if (lastUpdateField) lastUpdateField.value = now;
+		}
+	</script>
+</h:head>
+<h:body>
+	<h:form prependId="false" onsubmit = "setDateFields();">
+		<h3>CREATE</h3>
+		<label> Name <h:inputText pt:placeholder="Marisa Kirisame"  label="Name" value="#{userRegister.user.name}"/>
+		</label >
+		<label> Birth Date <h:inputText pt:placeholder="23/02/1992" label="Birth Date" converter="dateConverter" value="#{userRegister.user.birthDate}" />
+		<h:message for="birthDate" style="color: red;" />
+		</label>
+		 <label> Country
+		 <h:selectOneMenu label="Country" value="#{userRegister.country}">
+		 <f:selectItems value="#{countryCache.selectItems}" ></f:selectItems>		 
+		 </h:selectOneMenu><br/>
+		 </label>
+
+		<label> Password <h:inputSecret label="Password"  value="#{userRegister.user.password}"/>
+		</label>
+
+		<label> Password again <h:inputSecret  label="Password again" value="#{userRegister.user.password}"/>
+		</label>
+		<div id="div-buttons">
+		<h:button styleClass="btn" value="Sign-in" outcome="login.xhtml"></h:button>
+		<h:commandButton styleClass="btn" value="Create" action="#{userRegister.registerUser}"></h:commandButton>		
+		</div>
+		<!-- não tem como receber os parâmetros diretamente no método porque estamos usando o jsf 2.1 -->
+		 <h:inputHidden id="createAt" converter="zonedTimeConverter" value="#{userRegister.user.createAt}" />
+		 <h:inputHidden  id="lastUpdate" converter="zonedTimeConverter" value="#{userRegister.user.lastUpdate}" /> <br/>
+		 <h:messages globalOnly="true" style="color: red;"/>
+	</h:form>
+</h:body>
+</html>

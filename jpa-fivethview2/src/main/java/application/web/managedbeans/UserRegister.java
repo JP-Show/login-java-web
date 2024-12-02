@@ -1,6 +1,8 @@
 package application.web.managedbeans;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import application.country.Country;
 import application.users.User;
@@ -25,12 +27,19 @@ public class UserRegister {
 	}
 	
 	public String registerUser() {
-		Country country = new Country(this.country);
-		user.setCountry(country);
-		UsersServices.insertUser(user, user.getCreateAt().getZone());
-		System.out.println(user.getCreateAt().getZone());
-		// Redireciona para evitar reenvio do formulário
-		return "index?faces-redirect=true";
+		try {
+			Country country = new Country(this.country);
+			user.setCountry(country);
+			UsersServices.insertUser(user, user.getCreateAt().getZone());
+			
+		} catch (Exception e) {
+			FacesContext faceContext = FacesContext.getCurrentInstance();
+			faceContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
+			// Armazena a mensagem no Flash Scope para preservar após redirecionamento
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+		}
+		// Redireciona para evitar reenvio do formulário		
+		return "index?faces-redirect=true";	
 	}
 	
 }

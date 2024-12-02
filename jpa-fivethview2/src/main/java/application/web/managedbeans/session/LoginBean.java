@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import application.users.User;
 import application.users.UsersServices;
 import application.utils.ArgonInstance;
+import application.web.exception.WebExceptions;
 
 @SessionScoped
 @ManagedBean
@@ -22,15 +23,19 @@ public class LoginBean implements Serializable {
 
 	public String logar() {
 		if(userLogged == null) {
-			User userFound = UsersServices.findByNameUnique(name);
 			try {
-				boolean match = ArgonInstance.matchPassword(password, userFound.getPassword());
-				if(userFound.getName().equals(name) && match) {
-					userLogged = userFound;
-					System.out.println("logado com sucesso");
-					return "logged/home.xhtml?faces-redirect=true";
+				if(name == "" || password == "") {
+					throw new WebExceptions("Name or passward are missing!");
 				}
-				System.out.println("teste");
+				User userFound = UsersServices.findByNameUnique(name);
+				boolean match = ArgonInstance.matchPassword(password, userFound.getPassword());
+				if(!userFound.getName().equals(name) && !match) {
+					throw new WebExceptions("Name or passward incorrect!");
+				} 
+				userLogged = userFound;
+				System.out.println("logado com sucesso");
+				return "logged/home.xhtml?faces-redirect=true";
+			} catch (Exception e) {
 				FacesContext faceContext = FacesContext.getCurrentInstance();
 				faceContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Name or password is wrong", null));
 	            
@@ -39,9 +44,6 @@ public class LoginBean implements Serializable {
 	           
 	            // Redireciona de volta para login.xhtml
 	            return "/login.xhtml?faces-redirect=true";
-	            
-			} catch (Exception e) {
-				throw new RuntimeException(e.getMessage());
 			}			
 		}
 		return "/logged/home.xhtml?faces-redirect=true";
