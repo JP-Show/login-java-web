@@ -1,9 +1,9 @@
 package application.web.managedbeans.request;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -22,8 +22,7 @@ public class ConfigBean implements Serializable {
 	private ZonedDateTime lastUpdate;
 	private String checkPassword;
 	
-	public void updateNameUser() {
-		System.out.println(lastUpdate);
+	public String updateNameUser() {
 		if(lastUpdate == null) {
 			throw new WebExceptions("login for updating: date for the last update is null");
 		}
@@ -34,17 +33,16 @@ public class ConfigBean implements Serializable {
 			if(!ArgonInstance.matchPassword(checkPassword, userLogged.getPassword())) 
 				throw new WebExceptions("wrong password");
 			UsersServices.updateName(newName, userLogged.getId(), lastUpdate);
-			System.out.println("Names has changed");
+			userLogged.setName(newName);
+			faceContext.addMessage(null, new FacesMessage
+					(FacesMessage.FACES_MESSAGES, "Name has updated"));
 		}catch(Exception e) {
-			try {
-				faceContext.getExternalContext().redirect("/login.xhtml");
-			}catch (IOException e1) {
-				throw new WebExceptions("error for redirect: \n" + e1.getMessage());
-			}
-			throw new WebExceptions("login not found: \n" + e.getMessage());
+			faceContext.addMessage(null, new FacesMessage
+					(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
+			// Armazena a mensagem no Flash Scope para preservar após redirecionamento
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 		}
-		
-		//boolean match = ArgonInstance.matchPassword(password, userFound.getPassword());
+		return "/logged/config.xhtml?faces-redirect=true";
 	}
 
 	public String getNewName() {

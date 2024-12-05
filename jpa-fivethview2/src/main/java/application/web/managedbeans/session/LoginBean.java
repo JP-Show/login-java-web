@@ -34,7 +34,7 @@ public class LoginBean implements Serializable {
 				} 
 				userLogged = userFound;
 				System.out.println("logado com sucesso");
-				return "logged/home.xhtml?faces-redirect=true";
+				return "logged/config.xhtml?faces-redirect=true";
 			} catch (Exception e) {
 				FacesContext faceContext = FacesContext.getCurrentInstance();
 				faceContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Name or password is wrong", null));
@@ -46,7 +46,7 @@ public class LoginBean implements Serializable {
 	            return "/login.xhtml?faces-redirect=true";
 			}			
 		}
-		return "/logged/home.xhtml?faces-redirect=true";
+		return "/logged/config.xhtml?faces-redirect=true";
 	}
 
 

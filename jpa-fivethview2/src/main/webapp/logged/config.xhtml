@@ -2,9 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 	<h:head>
+		<link rel="stylesheet" type="text/css" href="../style/style-signup.css" />	
 		<script>
 		function setDateFields() {
 			let lastUpdateField = document.getElementById('lastUpdate');
@@ -15,14 +17,16 @@
 	</script>
 	</h:head>
 	<h:body>
-		<h1>Settings</h1>
 		<h:form prependId="false" onsubmit = "setDateFields();">
-		<label> Alter name <h:inputText value="#{configBean.newName}"></h:inputText>
+		<h3>Hello #{loginBean.userLogged.getName()}</h3>
+		<h3>SETTINGS</h3>
+		<label> Alter name <h:inputText pt:placeholder="new name" value="#{configBean.newName}"></h:inputText>
 		</label>
-		<label> password is required<h:inputText value="#{configBean.checkPassword}"></h:inputText>
+		<label> password is required<h:inputSecret pt:placeholder="*********" value="#{configBean.checkPassword}"/>
 		</label>
 		<h:inputHidden  id="lastUpdate" converter="zonedTimeConverter" value="#{configBean.lastUpdate}" /> <br/>
 		<h:commandButton value="pronto" action="#{configBean.updateNameUser}"></h:commandButton>
+		<h:messages globalOnly="true" style="color: red;" />
 		</h:form>
 	</h:body>
 </html>

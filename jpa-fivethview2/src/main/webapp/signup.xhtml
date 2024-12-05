@@ -29,16 +29,16 @@
 		<label> Birth Date <h:inputText pt:placeholder="23/02/1992" label="Birth Date" converter="dateConverter" value="#{userRegister.user.birthDate}" />
 		<h:message for="birthDate" style="color: red;" />
 		</label>
-		 <label> Country
+		 <label>Country
 		 <h:selectOneMenu label="Country" value="#{userRegister.country}">
 		 <f:selectItems value="#{countryCache.selectItems}" ></f:selectItems>		 
 		 </h:selectOneMenu><br/>
 		 </label>
 
-		<label> Password <h:inputSecret label="Password"  value="#{userRegister.user.password}"/>
+		<label>Password<h:inputSecret label="Password"  value="#{userRegister.password1}"/>
 		</label>
 
-		<label> Password again <h:inputSecret  label="Password again" value="#{userRegister.user.password}"/>
+		<label>Password again<h:inputSecret  label="Password again" value="#{userRegister.password2}"/>
 		</label>
 		<div id="div-buttons">
 		<h:button styleClass="btn" value="Sign-in" outcome="login.xhtml"></h:button>

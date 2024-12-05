@@ -118,7 +118,7 @@ public class UsersServices {
 			updated = true;
 		} catch (Exception e) {
 			tx.rollback();
-			throw new UsersExceptions("- ERROR Updating - \n" + e.getMessage());
+			throw new UsersExceptions("- ERROR Updating - " + e.getMessage());
 		} finally {
 			JPAUtils.closeEntityManager();
 		}
